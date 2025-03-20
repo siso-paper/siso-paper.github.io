@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<!-- TODO change metadata -->
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Single Image Iterative Subject-driven Generation and Editing</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Single Image Iterative Subject-driven Generation and Editing</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="www.linkedin.com/in/yair-shpitzer">Yair Shpitzer</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://chechiklab.biu.ac.il/~gal/">Gal Chechik</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://idansc.github.io/">Idan Schwartz</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Bar-Ilan University,</span>
+            <span class="author-block"><sup>2</sup>NVIDIA</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+<!-- TODO add link to pdf -->
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+<!-- TODO add link to arxiv -->
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/yairshp/SISO"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser.png" alt="Teaser Figure">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">SISO</span> is an inference-time optimization method to personalize images <i>from a single subject image</i> without training. SISO can
+        personalize the subject of a given image or generate new images with the personal subject.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Personalizing image generation and editing is particularly challenging when we only have a few images of the subject, or even a single image. A common approach to personalization is concept learning, which can integrate the subject into existing models relatively quickly, but produces images whose quality tends to deteriorate quickly when the number of subject images is small. Quality can be improved by pre-training an encoder, but training restricts generation to the training distribution, and is time consuming. It is still an open hard challenge to personalize image generation and editing from a single image without training. Here, we present SISO, a novel, training-free approach based on optimizing a similarity score with an input subject image. More specifically, SISO iteratively generates images and optimizes the model based on loss of similarity with the given subject image until a satisfactory level of similarity is achieved, allowing plug-and-play optimization to any image generator. We evaluated SISO in two tasks, image editing and image generation, using a diverse data set of personal subjects, and demonstrate significant improvements over existing methods in image quality, subject fidelity, and background preservation.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+        <!-- Iterative Optimization. -->
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+          <h2 class="title is-3">Iterative Optimization</h2>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <div style="margin-bottom: 0.0rem;"></div>
+          </div>
+        </div>
+    
+        <div class="columns is-centered">
+          <div class="column is-half">
+          <div class="columns is-centered">
+          <div class="columns is-vcentered interpolation-panel">
+          <div class="column has-text-centered">
+            <img src="./static/images/dog3_subject.png"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Subject Image</p>
+          </div>
+          <div class="column has-text-centered">
+            <p style="font-size: 1.0rem; font-weight: bold;">A photo of a dog</p>
+            <p style="margin-top: 7.9rem;">Prompt</p>
+          </div>
+          <div class="column has-text-centered">
+            <img src="./static/images/dog3_generation_interpolation.gif"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Output</p>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div class="column is-half" style="margin-left: 2rem;">
+          <div class="columns is-centered">
+          <div class="columns is-vcentered interpolation-panel">
+          <div class="column has-text-centered">
+            <img src="./static/images/cat_subject.png"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Subject Image</p>
+          </div>
+          <div class="column has-text-centered">
+            <p style="font-size: 1.0rem; font-weight: bold;">A photo of a cat</p>
+            <p style="margin-top: 7.9rem;">Prompt</p>
+          </div>
+          <div class="column has-text-centered">
+            <img src="./static/images/cat_generation_interpolation.gif"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Output</p>
+          </div>
+          </div>
+          </div>
+          </div>
+        </div>
+    
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <div style="margin-bottom: 1.0rem;"></div>
+          </div>
+        </div>
+    
+    
+    
+        <div class="columns is-centered">
+          <div class="column is-half">
+          <div class="columns is-centered">
+          <div class="columns is-vcentered interpolation-panel">
+          <div class="column has-text-centered">
+            <img src="./static/images/teddy_bear_subject.png"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Subject Image</p>
+          </div>
+          <div class="column has-text-centered">
+            <img src="./static/images/teddy_bear_input.png"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Input Image</p>
+          </div>
+          <div class="column has-text-centered">
+            <img src="./static/images/teddy_bear_edit_interpolation.gif"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Output</p>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div class="column is-half" style="margin-left: 2rem;">
+          <div class="columns is-centered">
+          <div class="columns is-vcentered interpolation-panel">
+          <div class="column has-text-centered">
+            <img src="./static/images/dog_subject.png"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Subject Image</p>
+          </div>
+          <div class="column has-text-centered">
+            <img src="./static/images/dog_input.png"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Input Image</p>
+          </div>
+          <div class="column has-text-centered">
+            <img src="./static/images/dog_edit_interpolation.gif"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Output</p>
+          </div>
+          </div>
+          </div>
+          </div>
+        </div>
+        <!--/ Iterative Optimization. -->
+
+    <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <div style="margin-bottom: 1.0rem;"></div>
+          </div>
+        </div>
+    
+
+    <!-- Method. -->
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+        <p>
+          Our method generates images by iteratively optimizing based on pre-trained identity metrics
+          IR and DINO. The added LoRA parameters are updated at each step, while the rest of the models remain frozen. 
+        </p>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-4">Generation</h2>
+        <div class="content has-text-justified">
+          <p>
+            For image generation, we find that optimizing with a simple prompt is effective, since the optimized model generates novel images of the subject without further optimization, even with complex prompts, as
+            shown on the right.
+          </p>
+          <div style="text-align: center;">
+          <img src="./static/images/generation_method.png" alt="Generation Method Figure", style="width: 80%; height: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-4">Editing</h2>
+        <div class="content has-text-justified">
+          <p>
+            For image editing, we use diffusion inversion to map the input image to a latent. We also add a background preservation regularization term.
+          </p>
+          <div style="text-align: center;">
+          <img src="./static/images/edit_method.png" alt="Editing Method Figure", style="width: 80%; height: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Method. -->
+
+    <!-- Qualitative Results. -->
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">Qualitative Results</h2>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-4">Generation</h2>
+       <!-- <div class="content has-text-justified"> -->
+          <div style="text-align: center;">
+            <img src="./static/images/qual_generation.png" alt="Generation Method Figure" style="width: 80%; height: auto;">
+          </div>
+          <!-- <p>We evaluate SISO against ClassDiffusion, AttnDreamBooth, DreamBooth and Textual Inversion. Our method successfully generates imag</p> -->
+      </div>
+      <!-- <div class="content has-text-justified"> -->
+        <div style="text-align: center;">
+          <img src="./static/images/qual_multi_model.png" alt="Generation Method Figure", style="width: 80%; height: auto; ">
+          <!-- <p>
+            We show the results of our method using three different generative models, and compare them to the results achieved by DreamBooth with the same models.
+          </p> -->
+        </div>
+      <!-- </div> -->
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-4">Editing</h2>
+        <!-- <div class="content has-text-justified"> -->
+          <div style="text-align: center;">
+          <img src="./static/images/qual_editing.png" alt="Editing Method Figure", style="width: 80%; height: auto;">
+          </div>
+        <!-- </div> -->
+      </div>
+    </div>
+    <!--/ Qualitative Results. -->
+
+    <!-- Quantitative Results. -->
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+      <!-- <div class="column is-full"> -->
+        <h2 class="title is-3">Quantitative Results</h2>
+        <!-- <h2 class="title is-3" style="writing-mode: horizontal-tb; text-orientation: mixed;">Quantitative Results</h2> -->
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-4" style="writing-mode: horizontal-tb; text-orientation: mixed;">Generation</h2>
+        <div class="content has-text-justified">
+          <div style="text-align: center;">
+          <img src="./static/images/quan_generation.png" alt="Generation Method Figure", style="width: 80%; height: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-4" style="writing-mode: horizontal-tb; text-orientation: mixed;">Editing</h2>
+        <!-- <div class="content has-text-justified"> -->
+          <div style="text-align: center;">
+            <img src="./static/images/quan_editing.png" alt="Editing Method Figure", style="width: 80%; height: auto;">
+          </div>
+      </div>
+    </div>
+    <!--/ Quantitative Results. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+<!-- TODO change bibtex -->
+    <!-- <pre><code>@article{park2021nerfies, -->
+  <!-- author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo}, -->
+  <!-- title     = {Nerfies: Deformable Neural Radiance Fields}, -->
+  <!-- journal   = {ICCV}, -->
+  <!-- year      = {2021}, -->
+<!-- }</code></pre> -->
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website source code based on the <a
+             href="https://nerfies.github.io/">Nerfies</a> project page. If you want to reuse their <a
+             href="https://github.com/nerfies/nerfies.github.io">source code</a> , please credit them appropriately.
+          </p>   
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -9,20 +9,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Single Image Iterative Subject-driven Generation and Editing</title>
 
-  <!-- Global site tag (gtag.js) - Google Analytics
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script> -->
-
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
@@ -33,7 +19,6 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -149,7 +134,21 @@
             <div style="margin-bottom: 0.0rem;"></div>
           </div>
         </div>
-    
+
+        <div class="columns is-centered">
+          <div class="column is-half has-text-centered">
+            <h3 class="title is-4">Generation</h3>
+          </div>
+          <div class="column is-half has-text-centered">
+            <h3 class="title is-4">Editing</h3>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <div style="margin-bottom: 0.0rem;"></div>
+          </div>
+        </div>
+
         <div class="columns is-centered">
           <div class="column is-half">
           <div class="columns is-centered">
@@ -175,42 +174,8 @@
           </div>
           </div>
           </div>
+
           <div class="column is-half" style="margin-left: 2rem;">
-          <div class="columns is-centered">
-          <div class="columns is-vcentered interpolation-panel">
-          <div class="column has-text-centered">
-            <img src="./static/images/cat_subject.png"
-             class="interpolation-image"
-             style="width: 100%; height: auto;"
-             alt=""/>
-            <p>Subject Image</p>
-          </div>
-          <div class="column has-text-centered">
-            <p style="font-size: 1.0rem; font-weight: bold;">A photo of a cat</p>
-            <p style="margin-top: 7.9rem;">Prompt</p>
-          </div>
-          <div class="column has-text-centered">
-            <img src="./static/images/cat_generation_interpolation.gif"
-             class="interpolation-image"
-             style="width: 100%; height: auto;"
-             alt=""/>
-            <p>Output</p>
-          </div>
-          </div>
-          </div>
-          </div>
-        </div>
-    
-        <div class="columns is-centered">
-          <div class="column is-full has-text-centered">
-            <div style="margin-bottom: 1.0rem;"></div>
-          </div>
-        </div>
-    
-    
-    
-        <div class="columns is-centered">
-          <div class="column is-half">
           <div class="columns is-centered">
           <div class="columns is-vcentered interpolation-panel">
           <div class="column has-text-centered">
@@ -234,6 +199,101 @@
              alt=""/>
             <p>Output</p>
           </div>
+          </div>
+          </div>
+          </div>
+        </div>
+    
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <div style="margin-bottom: 0.5rem;"></div>
+          </div>
+        </div>
+    
+
+        <div class="columns is-centered">
+          <div class="column is-half">
+          <div class="columns is-centered">
+          <div class="columns is-vcentered interpolation-panel">
+          <div class="column has-text-centered">
+            <img src="./static/images/chair_subject.png"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Subject Image</p>
+          </div>
+            <div class="column has-text-centered">
+              <p style="font-size: 1.0rem; font-weight: bold;">A photo of a chair</p>
+              <p style="margin-top: 7.9rem;">Prompt</p>
+            </div>
+            <div class="column has-text-centered">
+              <img src="./static/images/chair_generation_interpolation.gif"
+               class="interpolation-image"
+               style="width: 100%; height: auto;"
+               alt=""/>
+              <p>Output</p>
+            </div>
+          </div>
+          </div>
+          </div>
+          <div class="column is-half" style="margin-left: 2rem;">
+          <div class="columns is-centered">
+          <div class="columns is-vcentered interpolation-panel">
+          <div class="column has-text-centered">
+            <img src="./static/images/teapot_subject.png"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Subject Image</p>
+          </div>
+          <div class="column has-text-centered">
+            <img src="./static/images/teapot_input.png"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Input Image</p>
+          </div>
+          <div class="column has-text-centered">
+            <img src="./static/images/teapot_editing_interpolation.gif"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Output</p>
+          </div>
+          </div>
+          </div>
+          </div>
+        </div>
+ 
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <div style="margin-bottom: 0.5rem;"></div>
+          </div>
+        </div>
+    
+    
+        <div class="columns is-centered">
+          <div class="column is-half">
+          <div class="columns is-centered">
+          <div class="columns is-vcentered interpolation-panel">
+          <div class="column has-text-centered">
+            <img src="./static/images/cat_subject.png"
+             class="interpolation-image"
+             style="width: 100%; height: auto;"
+             alt=""/>
+            <p>Subject Image</p>
+          </div>
+            <div class="column has-text-centered">
+              <p style="font-size: 1.0rem; font-weight: bold;">A photo of a cat</p>
+              <p style="margin-top: 7.9rem;">Prompt</p>
+            </div>
+            <div class="column has-text-centered">
+              <img src="./static/images/cat_generation_interpolation.gif"
+               class="interpolation-image"
+               style="width: 100%; height: auto;"
+               alt=""/>
+              <p>Output</p>
+            </div>
           </div>
           </div>
           </div>
@@ -265,6 +325,8 @@
           </div>
           </div>
         </div>
+
+
         <!--/ Iterative Optimization. -->
 
     <div class="columns is-centered">
